@@ -106,15 +106,22 @@ class firehose_client(metaclass=LogBase):
                     "No --memory option set, we assume \"UFS\" as default ..., if it fails, try using \"--memory\" " +
                     "with \"UFS\",\"NAND\" or \"spinor\" instead !")
                 self.cfg.MemoryName = "UFS"
+                print('qcom[memoryType-1-UFS]')
             else:
                 self.warning(
                     "No --memory option set, we assume \"eMMC\" as default ..., if it fails, try using \"--memory\" " +
                     "with \"UFS\",\"NAND\" or \"spinor\" instead !")
                 self.cfg.MemoryName = "eMMC"
+                print('qcom[memoryType-1-eMMC]')
         if self.firehose.configure(0):
             funcs = "Supported functions:\n-----------------\n"
+            qcomInfo = str("qcom[sptFunc-{0}-".format(len(self.firehose.supported_functions)))
             for function in self.firehose.supported_functions:
+                qcomInfo += function + "-"
                 funcs += function + ","
+
+            qcomInfo = qcomInfo[:-1] + ']'
+            print(qcomInfo)
             funcs = funcs[:-1]
             self.info(funcs)
             self.target_name = self.firehose.cfg.TargetName
@@ -228,7 +235,8 @@ class firehose_client(metaclass=LogBase):
                                                        int(options["--gpt-part-entry-start-lba"]))
                 if guid_gpt is None:
                     break
-                self.printer(f"\nParsing Lun {str(lun)}:")
+                #self.printer(f"\nParsing Lun {str(lun)}:")
+                print(f"qcom[lunNumInfo-1-{str(lun)}]")
                 guid_gpt.print()
             return True
         elif cmd == "r":
