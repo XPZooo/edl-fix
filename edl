@@ -196,20 +196,21 @@ class main(metaclass=LogBase):
         self.serial_number = None
 
     def doconnect(self, loop) -> dict:
+        print('qcom[info-1-wait qcom connect]')
         while not self.cdc.connected:
             self.cdc.connected = self.cdc.connect(portname=self.portname)
             if not self.cdc.connected:
-                sys.stdout.write('.')
+                # sys.stdout.write('.')
                 if loop == 5:
                     sys.stdout.write('\n')
                     self.info("Hint:   Press and hold vol up+dwn, connect usb. For some, only use vol up.")
                     self.info("Xiaomi: Press and hold vol dwn + pwr, in fastboot mode connect usb.\n" +
                               "        Run \"./fastpwn oem edl\".")
                     self.info("Other:  Run \"adb reboot edl\".")
-                    sys.stdout.write('\n')
+                    # sys.stdout.write('\n')
 
                 if loop >= 20:
-                    sys.stdout.write('\n')
+                    # sys.stdout.write('\n')
                     loop = 6
                 loop += 1
                 time.sleep(1)
