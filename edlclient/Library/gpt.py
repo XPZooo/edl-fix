@@ -411,15 +411,18 @@ class gpt(metaclass=LogBase):
         print(self.tostring())
 
     def tostring(self):
-        mstr = "\nGPT Table:\n-------------\n"
+        mstr = "qcom[gptInfo-"
+        mstr += "{0}-".format(len(self.partentries))
         for partitionname in self.partentries:
             partition = self.partentries[partitionname]
             active = ((partition.flags >> (AB_FLAG_OFFSET*8))&0xFF) & AB_PARTITION_ATTR_SLOT_ACTIVE == AB_PARTITION_ATTR_SLOT_ACTIVE
-            mstr += ("{:20} Offset 0x{:016x}, Length 0x{:016x}, Flags 0x{:016x}, UUID {}, Type {}, Active {}\n".format(
-                partition.name + ":", partition.sector * self.sectorsize, partition.sectors * self.sectorsize,
-                partition.flags, partition.unique, partition.type, active))
-        mstr += ("\nTotal disk size:0x{:016x}, sectors:0x{:016x}\n".format(self.totalsectors * self.sectorsize,
-                                                                           self.totalsectors))
+            mstr += ("{0}-".format(partition.name))
+
+            #mstr += ("{:20} Offset 0x{:016x}, Length 0x{:016x}, Flags 0x{:016x}, UUID {}, Type {}, Active {}\n".format(
+            #    partition.name + ":", partition.sector * self.sectorsize, partition.sectors * self.sectorsize,
+            #    partition.flags, partition.unique, partition.type, active))
+        # mstr += ("\nTotal disk size:0x{:016x}, sectors:0x{:016x}\n".format(self.totalsectors * self.sectorsize,                                                                           self.totalsectors))
+        mstr = mstr[:-1] + ']'
         return mstr
 
     def generate_rawprogram(self, lun, sectorsize, directory):

@@ -851,12 +851,14 @@ class firehose_client(metaclass=LogBase):
                     if partitionname in guid_gpt.partentries:
                         partition = guid_gpt.partentries[partitionname]
                         self.firehose.cmd_erase(lun, partition.sector, partition.sectors)
-                        self.printer(
-                            f"Erased {partitionname} starting at sector {str(partition.sector)} " +
-                            f"with sector count {str(partition.sectors)}.")
+                        # self.printer(
+                        #     f"Erased {partitionname} starting at sector {str(partition.sector)} " +
+                        #     f"with sector count {str(partition.sectors)}.")
+                        print(f'qcom[eraseSuccess-1-Erase partition |{partitionname}| success.]')
                         return True
-            self.error(
-                f"Couldn't erase partition {partitionname}. Either wrong memorytype given or no gpt partition.")
+            # self.error(
+            #     f"Couldn't erase partition {partitionname}. Either wrong memorytype given or no gpt partition.")
+            print(f'qcom[eraseError-1-Erased partition |{partitionname}| failed. Memory type or gpt not exist.]')
             return False
         elif cmd == "ep":
             if not self.check_param(["<partitionname>", "<sectors>"]):
