@@ -351,7 +351,7 @@ class main(metaclass=LogBase):
             if self.__logger.level != logging.DEBUG:
                 self.__logger.setLevel(logging.ERROR)
         if mode == "error":
-            print("Connection detected, quiting.")
+            # print("Connection detected, quiting.")
             print('qcom:working done')
             sys.exit(1)
         elif mode == "firehose":
@@ -397,6 +397,10 @@ class main(metaclass=LogBase):
 
 
 if __name__ == '__main__':
-    base = main()
-    base.run()
+    try:
+        base = main()
+        base.run()
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        print(f'qcom[exceptFind-1-Errors found during operation, error info |{str(e)}|]')
     print('qcom:working done')
