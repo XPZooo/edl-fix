@@ -222,6 +222,7 @@ class main(metaclass=LogBase):
                     self.vid = self.cdc.vid
                     self.pid = self.cdc.pid
                 except Exception as err:  # pylint: disable=broad-except
+                    print('qcom[connNo-1-Dev sahara connect error |{str(err)}|.]')
                     self.debug(str(err))
                     continue
                 if "mode" in resp:
