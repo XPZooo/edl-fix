@@ -148,7 +148,8 @@ class sahara(metaclass=LogBase):
                     if len(res) > 0 and res[1] == 0x12:
                         return {"mode":"nandprg"}
                     elif len(res) == 0:
-                        print("Device is in Sahara error state, please reboot the device.")
+                        # print("Device is in Sahara error state, please reboot the device.")
+                        print(f'qcom[rebootDev-1-Dev state error, reboot retry.]')
                         return {"mode": "error"}
 
         except Exception as e:  # pylint: disable=broad-except
