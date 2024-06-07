@@ -300,6 +300,9 @@ class sahara(metaclass=LogBase):
                             self.cmd_modeswitch(sahara_mode_t.SAHARA_MODE_COMMAND)
                             return True
                         else:
+                            print(
+                                f"qcom[loaderNO-1-Not exist loader: ({self.hwidstr}_{self.pkhash[0:16]}" +
+                                "_[FHPRG/ENPRG].bin)]")
                             self.error(
                                 f"Couldn't find a loader for given hwid and pkhash ({self.hwidstr}_{self.pkhash[0:16]}" +
                                 "_[FHPRG/ENPRG].bin) :(")
@@ -576,6 +579,8 @@ class sahara(metaclass=LogBase):
                     pkt = resp["data"]
                     if pkt.image_tx_status == status_t.SAHARA_STATUS_SUCCESS:
                         if self.cmd_done():
+                            print(
+                                f"qcom[loaderOK-1-Exist loader: ({self.programmer}")
                             self.info("Loader successfully uploaded.")
                         else:
                             self.error("Error on uploading Loader.")
