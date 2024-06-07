@@ -233,6 +233,7 @@ class main(metaclass=LogBase):
 
     def exit(self):
         self.cdc.close()
+        print('qcom:working done')
         sys.exit()
 
     def run(self):
@@ -344,12 +345,14 @@ class main(metaclass=LogBase):
                         else:
                             print("Error on sahara handshake, resetting.")
                             self.sahara.cmd_reset()
+                            print('qcom:working done')
                             sys.exit(1)
         else:
             if self.__logger.level != logging.DEBUG:
                 self.__logger.setLevel(logging.ERROR)
         if mode == "error":
             print("Connection detected, quiting.")
+            print('qcom:working done')
             sys.exit(1)
         elif mode == "firehose":
             if "enprg" in self.sahara.programmer.lower():
@@ -363,6 +366,7 @@ class main(metaclass=LogBase):
                     mode = "nandprg"
                 else:
                     print("No suitable loader found :(")
+                    print('qcom:working done')
                     self.exit()
         if mode != "firehose":
             sc = streaming_client(args, self.cdc, self.sahara, self.__logger.level, print)
@@ -385,11 +389,14 @@ class main(metaclass=LogBase):
                 self.info("Trying to connect to firehose loader ...")
                 if fh.connect(sahara):
                     if not fh.handle_firehose(cmd, options):
+                        print('qcom:working done')
                         sys.exit(1)
                 else:
+                    print('qcom:working done')
                     sys.exit(1)
 
 
 if __name__ == '__main__':
     base = main()
     base.run()
+    print('qcom:working done')
