@@ -23,11 +23,13 @@ from struct import unpack, pack
 try:
     from capstone import *
 except ImportError:
-    print("Capstone library is missing (optional).")
+    # print("Capstone library is missing (optional).")
+    sys.stdout.write('')
 try:
     from keystone import *
 except ImportError:
-    print("Keystone library is missing (optional).")
+    # print("Keystone library is missing (optional).")
+    sys.stdout.write('')
 
 def is_windows():
     if sys.platform == 'win32' or sys.platform == 'win64' or sys.platform == 'winnt':
