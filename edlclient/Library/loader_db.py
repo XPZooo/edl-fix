@@ -38,7 +38,8 @@ class loader_utils(metaclass=LogBase):
         self.loaderdb = {}
 
     def init_loader_db(self):
-        for (dirpath, dirnames, filenames) in os.walk(os.path.join(parent_dir,"..","Loaders")):
+        print("qcom[initDatas-1-Loader dir: |{0}|.]".format(os.path.join(parent_dir,"..","datas","Loaders")))
+        for (dirpath, dirnames, filenames) in os.walk(os.path.join(parent_dir,"..","datas","Loaders")):
             for filename in filenames:
                 fn = os.path.join(dirpath, filename)
                 found = False
